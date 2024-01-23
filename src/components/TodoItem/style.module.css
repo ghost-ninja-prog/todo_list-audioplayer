@@ -1,0 +1,99 @@
+.item {
+    padding: 3px 7px;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #000;
+    margin: 2px 0;
+}
+.todoItemBtn {
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid #bababa;
+    border-radius: 3px;
+    transition: all .2s ease-in-out;
+}
+.todoItemBtn span {
+    display: inline-block;
+    transition: all .5s ease-in-out;
+}
+.todoItemBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 7px 1px #000;
+}
+.todoItemBtn:hover>span {
+    transform: rotateZ(180deg);
+}
+.title__completed {
+    text-decoration: line-through;
+}
+.labelCheckbox {
+    position: relative;
+}
+
+.check__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+}
+
+.check__box {
+    position: absolute;
+    margin-top: 0.2em;
+    width: 1.3em;
+    height: 1.3em;
+    /* overflow: hidden; */
+    border-radius: 3px;
+    background-color: white;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    border: 2px solid #000;
+    /* transition: opacity .1s ease-in-out,
+                width .4s ease-in-out; */
+}
+.check__box::before {
+    opacity: 0;
+    content: '';
+    position: absolute;
+    top: 9px;
+    left: -8px;
+    width: 15px;
+    height: 3px;
+    background-color: rgb(15, 28, 212);
+    transform-origin: right bottom;
+    transform: rotateZ(45deg);
+    border-radius: 95% 0 0 0;
+    transition: opacity .1s ease-in-out,
+}
+
+.check__box::after {
+    opacity: 0;
+    content: '';
+    position: absolute;
+    top: 9px;
+    left: 7px;
+    width: 0px;
+    height: 0px;
+    background-color: rgb(15, 28, 212);
+    transform-origin: left bottom;
+    transform: rotateZ(-45deg);
+    border-radius: 0 95% 0 0;
+    transition: opacity .1s ease-in-out;
+}
+
+.check__input:focus + .check__box {
+    box-shadow: 0 0 0 0.1em #4a90e2;
+                /* 0 0 0 0.2em #7ed321; */
+}
+
+.check__input:checked + .check__box::after {
+    opacity: 1;
+    width: 25px;
+    height: 3px;
+}
+.check__input:checked + .check__box::before {
+    opacity: 1;
+    width: 15px;
+    height: 3px;
+}
