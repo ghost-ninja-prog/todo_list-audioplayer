@@ -22,6 +22,9 @@ export default function Header() {
                     <li>
                         <Link to={'/todolist'} className={style.navigationLink}>TodoList</Link>
                     </li>
+                    <li>
+                        <Link to={'/audioplayer'} className={style.navigationLink}>Audioplayer</Link>
+                    </li>
                 </ul>
             </nav>
         </header>

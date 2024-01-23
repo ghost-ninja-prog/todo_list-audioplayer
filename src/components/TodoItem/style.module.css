@@ -28,6 +28,7 @@
 }
 .labelCheckbox {
     position: relative;
+    cursor: pointer;
 }
 
 .check__input {

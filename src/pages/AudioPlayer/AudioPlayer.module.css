@@ -1,0 +1,10 @@
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+.tracksList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}

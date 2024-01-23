@@ -2,7 +2,7 @@ import React from 'react'
 import { useRouteError } from 'react-router-dom'
 
 import style from './style.module.css'
-import Header from '../../components/header/Header'
+import Header from '../../components/Header/Header'
 
 export default function ErrorPage() {
     

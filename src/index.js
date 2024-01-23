@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
 import Contacts from './pages/Contacts';
 import About from './pages/About';
 import Home from './pages/Home';
 
+import AudioPlayer from './pages/AudioPlayer/AudioPlayer';
 import TodoList from './pages/TodoList/TodoList';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
+
+
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 
@@ -33,12 +37,16 @@ const router = createBrowserRouter([
     element: <Contacts />
   },
   {
-    path: 'about',
+    path: '/about',
     element: <About />
   },
   {
-    path: 'todolist',
+    path: '/todolist',
     element: <TodoList />
+  },
+  {
+    path: '/audioplayer',
+    element: <AudioPlayer />
   }
 ])
 
