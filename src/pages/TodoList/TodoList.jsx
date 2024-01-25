@@ -26,7 +26,6 @@ export default function TodoList() {
 
   return (
     <div>
-        <Header />
         <div className={style.container}>
 
           <form onSubmit={onSubmitHandler}>

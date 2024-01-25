@@ -1,9 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isPlaying: false,
-  currentTrackIndex: 0,
-  currentTrackId: 1,
   tracks: [
     {
       id: 1,
@@ -122,7 +119,11 @@ const initialState = {
       title: "Cradles",
       artists: "Sub Urban",
     },
-  ]
+  ],
+  isPlaying: false,
+  currentTrackIndex: 0,
+  currentTrackId: 1,
+  currentTrack: null,
 }
 
 
@@ -131,6 +132,7 @@ const audioPlayerSlice = createSlice({
   initialState,
   reducers: {
     play: (state, action) => {
+      state.currentTrack = state.tracks.find(track => track.id === action.payload)
       state.isPlaying = true
       state.currentTrackIndex = state.tracks.findIndex(track => track.id === action.payload)
       state.currentTrackId = state.tracks[state.currentTrackIndex].id

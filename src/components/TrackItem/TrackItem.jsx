@@ -6,44 +6,45 @@ import { useDispatch, useSelector } from 'react-redux'
 import { pause, play } from '../../store/audioPlayerSlice'
 
 const TrackItem = ({ track }) => {
+    
+    const dispatch = useDispatch()
+    
     //state
-    // const [isPlaying, setIsPlaying] = useState(false)
-    const {currentTrackIndex, currentTrackId, isPlaying} = useSelector(state => state.audio)
+    const { currentTrackId, isPlaying} = useSelector(state => state.audio)
     const [currentTime, setCurrentTime] = useState(0)
 
     //references
-    const audioPlayer = useRef()
+    // const audioPlayer = useRef()
     const progressBar = useRef()
     const animationRef = useRef()
 
-    const dispatch = useDispatch()
 
 
-    const togglePlayPause = () => {
-        if(currentTrackId !== track.id) {
-            audioPlayer.current.currentTime = 0
-            audioPlayer.current.play()
-            dispatch(play(track.id))
-            animationRef.current = requestAnimationFrame(whilePlaying)
-        }
+    // const togglePlayPause = () => {
+    //     if(currentTrackId !== track.id) {
+    //         audioPlayer.current.currentTime = 0
+    //         audioPlayer.current.play()
+    //         dispatch(play(track.id))
+    //         // animationRef.current = requestAnimationFrame(whilePlaying)
+    //     }
 
-        if(isPlaying && currentTrackId === track.id) {
-            audioPlayer.current.pause()
-            cancelAnimationFrame(animationRef.current)
-            dispatch(pause())
-        }else if(!isPlaying && currentTrackId === track.id) {
-            audioPlayer.current.play()
-            animationRef.current = requestAnimationFrame(whilePlaying)
-            dispatch(play(track.id))
-        } else if (isPlaying && currentTrackId !== track.id){
-            dispatch(pause())
-            audioPlayer.current.currentTime = 0
-            audioPlayer.current.play()
-            animationRef.current = requestAnimationFrame(whilePlaying)
-            dispatch(play(track.id))
-        }
+    //     if(isPlaying && currentTrackId === track.id) {
+    //         audioPlayer.current.pause()
+    //         cancelAnimationFrame(animationRef.current)
+    //         dispatch(pause())
+    //     }else if(!isPlaying && currentTrackId === track.id) {
+    //         audioPlayer.current.play()
+    //         // animationRef.current = requestAnimationFrame(whilePlaying)
+    //         dispatch(play(track.id))
+    //     } else if (isPlaying && currentTrackId !== track.id){
+    //         dispatch(pause())
+    //         audioPlayer.current.currentTime = 0
+    //         audioPlayer.current.play()
+    //         // animationRef.current = requestAnimationFrame(whilePlaying)
+    //         dispatch(play(track.id))
+    //     }
 
-    }
+    // }
 
     const calculateTime = (secs) => {
         const minutes = Math.floor(secs / 60)
@@ -53,41 +54,59 @@ const TrackItem = ({ track }) => {
         return `${returnedMinutes}:${returnedSeconds}`
     }
 
-    const changePlayerCurrentTime = () => {
-        progressBar.current.style.setProperty('--seek-before-width', `${progressBar.current.value / track.duration * 100}%`)
-        setCurrentTime(progressBar.current.value)
-    }
 
-    const changeRange = () => {
-        audioPlayer.current.currentTime = progressBar.current.value
-        changePlayerCurrentTime()
-    }
+    // const changePlayerCurrentTime = () => {
+    //     progressBar.current.style.setProperty('--seek-before-width', `${progressBar.current.value / track.duration * 100}%`)
+    //     setCurrentTime(progressBar.current.value)
+    // }
 
-    const whilePlaying = () => {
-        progressBar.current.value = audioPlayer.current.currentTime
-        changePlayerCurrentTime()
-        animationRef.current = requestAnimationFrame(whilePlaying)
-    }
+    // const changeRange = () => {
+    //     audioPlayer.current.currentTime = progressBar.current.value
+    //     changePlayerCurrentTime()
+    // }
 
-    useEffect(() => {
-        if(currentTrackId !== track.id) {
-            audioPlayer.current.pause()
-        }
-    }, [currentTrackId])
+    // const whilePlaying = () => {
+    //     progressBar.current.value = audioPlayer.current.currentTime
+    //     changePlayerCurrentTime()
+    //     animationRef.current = requestAnimationFrame(whilePlaying)
+    // }
+
+    // const changeRange = () => {
+    //     audioPlayer.current.currentTime = progressBar.current.value
+    //     setCurrentTime(progressBar.current.value)
+    //     progressBar.current.style.setProperty('--seek-before-width', `${progressBar.current.value / track.duration * 100}%`)
+    // }
+
+    // const animationProgressBar = () => {
+    //     setCurrentTime(audioPlayer.current.currentTime)
+    //     progressBar.current.value = audioPlayer.current.currentTime
+    //     progressBar.current.style.setProperty('--seek-before-width', `${progressBar.current.value / track.duration * 100}%`)
+    // }
+
+
+
+    // useEffect(() => {
+    //     if(currentTrackId !== track.id) {
+    //         audioPlayer.current.pause()
+    //         // cancelAnimationFrame(animationRef.current)
+    //     }
+    // }, [currentTrackId])
 
 
 
   return (
     <li className={style.trackItem}>
-        <audio
+        {/* <audio
             ref={audioPlayer}
             src={track.src}
             preload='metadata'
+            onTimeUpdate={animationProgressBar}
+            onEnded={() => alert('Ended')}
         >
-        </audio>
+        </audio> */}
         <button 
             className={style.btn}
-            onClick={togglePlayPause}
+            // onClick={togglePlayPause}
         >
             { (isPlaying && currentTrackId === track.id) ? <FaPause /> : <FaPlay className={style.btnPlay} />}
         </button>
@@ -106,7 +125,7 @@ const TrackItem = ({ track }) => {
                 max={track.duration}
                 defaultValue={0}
                 ref={progressBar}
-                onChange={changeRange}
+                // onChange={changeRange}
             />
         </div>
         <span className={style.trackTime}>{ calculateTime(track.duration) }</span>

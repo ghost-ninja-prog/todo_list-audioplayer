@@ -28,6 +28,7 @@ ol[role='list'] {
 body {
   min-height: 100vh;
   line-height: 1.5;
+  box-sizing: border-box;
 }
 
 /* Set shorter line heights on headings and interactive elements */

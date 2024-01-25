@@ -4,14 +4,17 @@ import { Link } from 'react-router-dom'
 
 export default function Header() {
     return (
+    <>
         <header className={style.header}>
             <nav className={style.navigation}>
                 <div>
-                    <h3 className={style.navigationLogo}>Logo</h3>
+                    <Link to={'/'}>
+                        <h3 className={style.navigationLogo}>Logo</h3>
+                    </Link>
                 </div>
                 <ul className={style.navigationLinks}>
                     <li className={style.navigationItem}>
-                        <Link to={'/'} className={style.navigationLink}>Home</Link>
+                        <Link to={'/home'} className={style.navigationLink}>Home</Link>
                     </li>
                     <li>
                         <Link to={"/contacts"} className={style.navigationLink}>Contacts</Link>
@@ -28,5 +31,6 @@ export default function Header() {
                 </ul>
             </nav>
         </header>
+    </>
     )
 }
