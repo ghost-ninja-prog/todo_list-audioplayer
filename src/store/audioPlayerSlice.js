@@ -123,7 +123,15 @@ const initialState = {
   isPlaying: false,
   currentTrackIndex: 0,
   currentTrackId: 1,
-  currentTrack: null,
+  currentTrack: {
+    id: 1,
+    src: "https://ncsmusic.s3.eu-west-1.amazonaws.com/tracks/000/001/250/what-i-say-1668733254-7bXF48DYkS.mp3",
+    preview:
+      "https://ncsmusic.s3.eu-west-1.amazonaws.com/tracks/000/001/154/1000x0/no-way-back-1656410436-lmCSrM15Fp.jpg",
+    duration: 215,
+    title: "No Way Back",
+    artists: "Custody",
+  }
 }
 
 

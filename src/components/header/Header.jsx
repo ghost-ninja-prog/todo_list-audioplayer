@@ -1,6 +1,7 @@
 import React from 'react'
 import style from './header.module.css'
 import { Link } from 'react-router-dom'
+import Player from '../Player/Player'
 
 export default function Header() {
     return (
@@ -12,6 +13,7 @@ export default function Header() {
                         <h3 className={style.navigationLogo}>Logo</h3>
                     </Link>
                 </div>
+                <Player />
                 <ul className={style.navigationLinks}>
                     <li className={style.navigationItem}>
                         <Link to={'/home'} className={style.navigationLink}>Home</Link>

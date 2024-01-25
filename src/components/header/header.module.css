@@ -1,12 +1,13 @@
 .header {
     padding: 10px 20px;
-    background-color: #b3b0b0;
+    background-color: #e6e3e3;
 }
 .navigation {
     display: flex;
     justify-content: space-between;
 }
 .navigationLinks {
+    padding: 0;
     list-style: none;
     margin: 0;
     display: flex;

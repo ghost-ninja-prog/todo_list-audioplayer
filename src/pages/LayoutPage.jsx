@@ -9,7 +9,6 @@ export default function LayoutPage() {
     <div>
       <div>
         <Header />
-        <Player />
       </div>
         <Outlet />
     </div>
