@@ -1,50 +1,22 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { FaPlay, FaPause } from 'react-icons/fa'
 
 import style from './TrackItem.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { pause, play } from '../../store/audioPlayerSlice'
+import { pause, clickPlay, play } from '../../store/audioPlayerSlice'
 
 const TrackItem = ({ track }) => {
     
     const dispatch = useDispatch()
     
     //state
-    const { currentTrackId, isPlaying} = useSelector(state => state.audio)
+    const { isPlaying, currentTrackId} = useSelector(state => state.audio)
     const [currentTime, setCurrentTime] = useState(0)
 
     //references
     // const audioPlayer = useRef()
     const progressBar = useRef()
     const animationRef = useRef()
-
-
-
-    // const togglePlayPause = () => {
-    //     if(currentTrackId !== track.id) {
-    //         audioPlayer.current.currentTime = 0
-    //         audioPlayer.current.play()
-    //         dispatch(play(track.id))
-    //         // animationRef.current = requestAnimationFrame(whilePlaying)
-    //     }
-
-    //     if(isPlaying && currentTrackId === track.id) {
-    //         audioPlayer.current.pause()
-    //         cancelAnimationFrame(animationRef.current)
-    //         dispatch(pause())
-    //     }else if(!isPlaying && currentTrackId === track.id) {
-    //         audioPlayer.current.play()
-    //         // animationRef.current = requestAnimationFrame(whilePlaying)
-    //         dispatch(play(track.id))
-    //     } else if (isPlaying && currentTrackId !== track.id){
-    //         dispatch(pause())
-    //         audioPlayer.current.currentTime = 0
-    //         audioPlayer.current.play()
-    //         // animationRef.current = requestAnimationFrame(whilePlaying)
-    //         dispatch(play(track.id))
-    //     }
-
-    // }
 
     const calculateTime = (secs) => {
         const minutes = Math.floor(secs / 60)
@@ -83,30 +55,24 @@ const TrackItem = ({ track }) => {
     //     progressBar.current.style.setProperty('--seek-before-width', `${progressBar.current.value / track.duration * 100}%`)
     // }
 
-
-
-    // useEffect(() => {
-    //     if(currentTrackId !== track.id) {
-    //         audioPlayer.current.pause()
-    //         // cancelAnimationFrame(animationRef.current)
-    //     }
-    // }, [currentTrackId])
-
+    const clickBtnListItem = () => {
+        if(!isPlaying && currentTrackId !== track.id) {
+            dispatch(play(track.id))
+        } else if( !isPlaying && currentTrackId === track.id ){
+            dispatch(clickPlay())
+        } else if( isPlaying && currentTrackId === track.id ){
+            dispatch(pause())
+        } else if( isPlaying && currentTrackId !== track.id ) {
+            dispatch(play(track.id))
+        }
+    }
 
 
   return (
     <li className={style.trackItem}>
-        {/* <audio
-            ref={audioPlayer}
-            src={track.src}
-            preload='metadata'
-            onTimeUpdate={animationProgressBar}
-            onEnded={() => alert('Ended')}
-        >
-        </audio> */}
         <button 
             className={style.btn}
-            // onClick={togglePlayPause}
+            onClick={clickBtnListItem}
         >
             { (isPlaying && currentTrackId === track.id) ? <FaPause /> : <FaPlay className={style.btnPlay} />}
         </button>

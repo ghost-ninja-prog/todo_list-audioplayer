@@ -1,24 +1,42 @@
-import React, { useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { MdSkipNext, MdSkipPrevious, MdOutlinePause, MdPlayArrow } from "react-icons/md";
+import { IconContext } from 'react-icons'
+
+import { pause, clickPlay } from '../../store/audioPlayerSlice'
 
 import style from './player.module.css'
 
 const Player = () => {
 
-    const [isPlaying, setIsPlaying] = useState(false)
-    const { currentTrack, tracks, currentTrackIndex } = useSelector(state => state.audio)
-    const { artists, duration, id, preview, src, title } = currentTrack
+    //state
+    const { currentTrack, isPlaying } = useSelector(state => state.audio)
 
-    console.log(src)
-
-
+    //references
     const audio = useRef()
+    
+    const dispatch = useDispatch()
 
 
-    const clickPlay = () => {
-        !isPlaying ? audio.current.play() : audio.current.pause()
-        setIsPlaying(!isPlaying)
+    const clickPlayBtn = () => {
+        if(!isPlaying) {
+            dispatch(clickPlay())
+            audio.current.play()
+
+        } else {
+            dispatch(pause())
+            audio.current.pause()
+        }
     }
+
+    useEffect(() => {
+        if(!isPlaying) {
+            audio.current.pause()
+        } else if(isPlaying) {
+            audio.current.play()
+        }
+    }, [isPlaying, currentTrack])
 
     return (
         <div className={style.wrapper}>
@@ -28,24 +46,26 @@ const Player = () => {
                 preload='true'
             />
             <div className={style.playerBox}>
-                <button
-                    className={style.btnPlay}
-                    onClick={clickPlay}
-                >
-                    &#9658;
+                {/* <IconContext.Provider value={{size: '32px'}} > */}
+                    <button
+                        className={style.btnPlay}
+                        onClick={clickPlayBtn}
+                        >
+                        { isPlaying ? <MdOutlinePause /> : <MdPlayArrow />}
+                    </button>
+                {/* </IconContext.Provider> */}
+                <button className={style.btn}>
+                    <MdSkipPrevious />                   
+                </button>
+                <button className={style.btn}>
+                    <MdSkipNext/>
                 </button>
                 <div className={style.preview}>
-                    <img src={preview} alt='artist' />
+                    <img src={currentTrack.preview} alt='artist' />
                 </div>
                 <div className={style.playerBoxDesc}>
-                    <div className={style.boxDescTime}>
-                        <div>
-                            <h3 className={style.title}>{title}</h3>
-                            <h5 className={style.artists}>{artists}</h5>
-                        </div>
-                        <div className={style.time}>{duration}</div>
-                    </div>
-                    <div className={style.progressBar}></div>
+                    <h3 className={style.title}>{currentTrack.title}</h3>
+                    <h5 className={style.artists}>{currentTrack.artists}</h5>
                 </div>
             </div>
         </div>

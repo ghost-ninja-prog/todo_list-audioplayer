@@ -141,16 +141,22 @@ const audioPlayerSlice = createSlice({
   reducers: {
     play: (state, action) => {
       state.currentTrack = state.tracks.find(track => track.id === action.payload)
-      state.isPlaying = true
       state.currentTrackIndex = state.tracks.findIndex(track => track.id === action.payload)
       state.currentTrackId = state.tracks[state.currentTrackIndex].id
+      state.isPlaying = true
+      console.log('play')
+    },
+    clickPlay: (state) => {
+      state.isPlaying = true
+      console.log('click play')
     },
     pause: (state) => {
       state.isPlaying = false
+      console.log('pause')
     }
   }
 })
 
-export const {play, pause} = audioPlayerSlice.actions
+export const {clickPlay, pause, play} = audioPlayerSlice.actions
 
 export default audioPlayerSlice.reducer
